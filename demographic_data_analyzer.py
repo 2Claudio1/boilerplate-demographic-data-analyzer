@@ -3,7 +3,10 @@ import pandas as pd
 
 def calculate_demographic_data(print_data=True):
     # Read data from file
-    df = None
+    demographic_data_df = pd.read_csv('adult.data.csv')
+    
+    # Dataframe total length
+    demographic_data_df_length = len(demographic_data_df)
 
     # How many of each race are represented in this dataset? This should be a Pandas series with race names as the index labels.
     race_count = None
