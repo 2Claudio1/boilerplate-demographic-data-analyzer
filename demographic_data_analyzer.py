@@ -37,11 +37,13 @@ def calculate_demographic_data(print_data=True):
     # What percentage of the people who work the minimum number of hours per week have a salary of >50K?
     num_min_workers = demographic_data_df[demographic_data_df['hours-per-week'] == min_work_hours]['salary'].count()
 
-    rich_percentage = round((demographic_data_df[(demographic_data_df['hours-per-week'] == min_work_hours) & (demographic_data_df['salary'] == '>50K')]['salary'].count() / num_min_workers) * 100, 1)
+    rich_percentage = round((demographic_data_df.loc[(demographic_data_df['hours-per-week'] == min_work_hours) & (demographic_data_df['salary'] == '>50K')]['salary'].count() / num_min_workers) * 100, 1)
 
     # What country has the highest percentage of people that earn >50K?
-    highest_earning_country = None
-    highest_earning_country_percentage = None
+    percentage_salary_bigger_50k_per_country = (demographic_data_df[demographic_data_df['salary'] == '>50K']['native-country'].value_counts() / demographic_data_df['native-country'].value_counts()) * 100
+    #highest_earning_country = percentage_salary_bigger_50k_per_country.sort_values(ascending=False).head(1).index[0] #values[0]
+    highest_earning_country = percentage_salary_bigger_50k_per_country.idxmax()
+    highest_earning_country_percentage = round(percentage_salary_bigger_50k_per_country.max(), 1)
 
     # Identify the most popular occupation for those who earn >50K in India.
     top_IN_occupation = None
